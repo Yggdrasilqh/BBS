@@ -3,13 +3,13 @@ package com.yggdrasil.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by chenq on 2016/12/8,008.
  */
 @Entity
-public class post {
+public class Post {
     @Id
     private int id;
     @Column
