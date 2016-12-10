@@ -20,4 +20,5 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
     public List<Post> findByid(@Param("id") int id);
 
 
+
 }

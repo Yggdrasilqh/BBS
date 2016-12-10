@@ -41,4 +41,12 @@ public class PostControl {
         postRepository.save(post);
         return "success";
     }
+
+    @RequestMapping(value = "/updatePostById",method = RequestMethod.POST)
+    public String updatePostById(Post post){
+        postRepository.delete(post.getId());
+        postRepository.save(post);
+        return "success";
+    }
+
 }
