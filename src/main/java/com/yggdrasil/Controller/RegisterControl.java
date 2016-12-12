@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * Created by Yggdrasil on 16/12/8.
+ * 注册
  */
 @Controller
-public class Register {
+public class RegisterControl {
 
     @Resource
     UserRepository userRepository;
