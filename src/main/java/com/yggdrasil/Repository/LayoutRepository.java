@@ -16,5 +16,4 @@ import java.util.List;
 @Repository
 public interface LayoutRepository extends JpaRepository<Layout,Integer>{
 
-
 }

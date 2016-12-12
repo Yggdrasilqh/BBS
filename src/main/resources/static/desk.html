@@ -9,40 +9,37 @@
 <table>
     <tbody id="desk-table">
     <tr>
-        <td>123</td>
-        <td>123</td>
+        <td></td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 
 <script>
-   function getDesk() {
-       var deskTable;
+   function getLayout() {
+       var layout;
        $.ajax({
-           url: '/select/desk',
+           url: '/showLayoutController/showLayout',
            type: 'get',
            async: false,
            success: function (data) {
-               deskTable = data;
+               layout = data;
            }
        });
-       return deskTable;
+       return layout;
    }
 
 
-   function showInTable(){
-       var deskTable = getDesk();
-       $('#desk-table').empty();
-       var desk;
-       for(var loop = 0 ; loop < deskTable.length ; loop++) {
-           desk += "<tr><td>"+deskTable[loop].num+"</td>";
-           desk += "<td>"+deskTable[loop].seating+"</td></tr>";
+   function showLayout(){
+       var Layout = getLayout();
+       for(var loop = 0 ; loop < Layout.length ; loop++) {
+           $("#desk-table td" ).eq(loop).text(Layout[loop].id);
        }
-       $('#desk-table').append(desk);
+
    }
 
    $(function(){
-       showInTable();
+       showLayout();
    });
 
 </script>
