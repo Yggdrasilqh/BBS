@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by chenq on 2016/12/8,008.
+ * 评论
  */
 @RestController
 @RequestMapping("/login/comment")
@@ -26,19 +26,18 @@ public class CommentControl {
         return commentRepository.findByPostId(post_id);
     }
 
-    @RequestMapping(value = "/insertComment",method = RequestMethod.POST)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String inertComment(Comment comment){
         commentRepository.save(comment);
         return "success";
     }
-    @RequestMapping(value = "/deleteComment",method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteById",method = RequestMethod.POST)
     public String deleteComment(int id){
         commentRepository.delete(id);
         return "success";
     }
-    @RequestMapping(value = "getCommentUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/getCommentUser",method = RequestMethod.GET)
     public User getCommentUser(String id){
         return userRepository.findById(id);
     }
-
 }

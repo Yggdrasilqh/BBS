@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by chenq on 2016/12/8,008.
+ * 帖子
  */
 @RestController
 @RequestMapping("/login/post")
@@ -24,7 +24,7 @@ public class PostControl {
     private UserRepository userRepository;
 
 
-    @RequestMapping(value = "/getAllByLayoutId",method = RequestMethod.GET)
+    @RequestMapping(value = "/getByLayoutId",method = RequestMethod.GET)
     public List<Post> getAllContentByPostId(int LayoutId){
         return postRepository.findBylayout_id(LayoutId);
     }
@@ -39,19 +39,18 @@ public class PostControl {
         postRepository.delete(id);
         return "success";
     }
-    @RequestMapping(value = "/getPostUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
     public User getPostUser(String id){
         return userRepository.findById(id);
     }
-    @RequestMapping(value = "/insertPost",method = RequestMethod.POST)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String inertComment(Post post){
         postRepository.save(post);
         return "success";
     }
 
-    @RequestMapping(value = "/updatePostById",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateById",method = RequestMethod.POST)
     public String updatePostById(Post post){
-        postRepository.delete(post.getId());
         postRepository.save(post);
         return "success";
     }

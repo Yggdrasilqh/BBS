@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * Created by Yggdrasil on 16/12/8.
+ * 登陆
  */
 @RestController
-public class Login {
+public class LoginControl {
     @Resource
     UserRepository userRepository;
     @RequestMapping("/login.action")

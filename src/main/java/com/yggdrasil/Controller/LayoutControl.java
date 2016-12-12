@@ -10,32 +10,32 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Created by Zelzhao on 2016/12/8.
+ * 版面
  */
 @RestController
-@RequestMapping("/showLayoutController")
-public class ShowLayoutController {
+@RequestMapping("/login/layout")
+public class LayoutControl {
 
     private LayoutRepository layoutRepository;
     @Autowired
-    public ShowLayoutController(LayoutRepository layoutRepository) {
+    public LayoutControl(LayoutRepository layoutRepository) {
         this.layoutRepository = layoutRepository;
     }
 
-    @RequestMapping(value = "/showLayout",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
    public List<Layout> showLayout(){
         return layoutRepository.findAll();
     }
 
-    @RequestMapping(value = "/layoutInsert",method = RequestMethod.POST)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String layoutInsert(Layout layout){
         layoutRepository.save(layout);
         return "success";
     }
 
-    @RequestMapping(value = "/layoutDelete",method = RequestMethod.POST)
-    public String layoutDelete(int layoutid){
-        layoutRepository.delete(layoutid);
+    @RequestMapping(value = "/deleteById",method = RequestMethod.POST)
+    public String layoutDelete(int id){
+        layoutRepository.delete(id);
         return "success";
     }
 
