@@ -12,7 +12,6 @@ public class BbsApplication extends WebMvcConfigurerAdapter{
 
 	public static void main(String[] args) {
 		SpringApplication.run(BbsApplication.class, args);
-		//zelotest
 	}
 
 	@Override
