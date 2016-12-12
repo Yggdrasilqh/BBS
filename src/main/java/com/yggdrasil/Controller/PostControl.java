@@ -1,7 +1,9 @@
 package com.yggdrasil.Controller;
 
 import com.yggdrasil.Entity.Post;
+import com.yggdrasil.Entity.User;
 import com.yggdrasil.Repository.PostRepository;
+import com.yggdrasil.Repository.UserRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ public class PostControl {
 
     @Resource
     private PostRepository postRepository;
+    @Resource
+    private UserRepository userRepository;
 
 
     @RequestMapping(value = "/getAllByLayoutId",method = RequestMethod.GET)
@@ -35,7 +39,10 @@ public class PostControl {
         postRepository.delete(id);
         return "success";
     }
-
+    @RequestMapping(value = "/getPostUser",method = RequestMethod.GET)
+    public User getPostUser(String id){
+        return userRepository.findById(id);
+    }
     @RequestMapping(value = "/insertPost",method = RequestMethod.POST)
     public String inertComment(Post post){
         postRepository.save(post);
