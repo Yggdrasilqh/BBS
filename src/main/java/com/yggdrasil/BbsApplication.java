@@ -1,8 +1,8 @@
 package com.yggdrasil;
 
+import com.yggdrasil.Interceptor.LayoutGroupInterceptor;
 import com.yggdrasil.Interceptor.LoginInterceptor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -17,6 +17,7 @@ public class BbsApplication extends WebMvcConfigurerAdapter{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/login/**");
-        super.addInterceptors(registry);
+		registry.addInterceptor(new LayoutGroupInterceptor()).addPathPatterns("/login/post/**");
+		//super.addInterceptors(registry);
 	}
 }

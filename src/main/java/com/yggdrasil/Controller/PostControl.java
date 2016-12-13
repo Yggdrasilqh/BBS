@@ -25,8 +25,8 @@ public class PostControl {
 
 
     @RequestMapping(value = "/getByLayoutId",method = RequestMethod.GET)
-    public List<Post> getAllContentByPostId(int LayoutId){
-        return postRepository.findBylayout_id(LayoutId);
+    public List<Post> getAllContentByPostId(int layout_id){
+        return postRepository.findBylayout_id(layout_id);
     }
 
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
