@@ -107,12 +107,12 @@
             <div class="span8 page-content" style="width: 1560px">
                 <div class="row separator" id="layout-container">
                     <section class="span4 articles-list">
-                        <a href="single.html">
+                        <a href="post.html">
                             <h1>版面名字1</h1>
                         </a>
                         <ul class="articles">
                             <li class="article-entry standard">
-                                <h4><a href="single.html">帖子</a></h4>
+                                <h4><a href="post.html">帖子</a></h4>
                                 <span class="article-meta">时间<a href="#" title="View all posts in Server &amp; Database">发帖用户</a></span>
                             </li>
                         </ul>
@@ -155,10 +155,10 @@
         var layout = '';
         for(var loop = 0 ; loop < layout_data.length ; loop ++) {
             var post_data = getPostByLayoutId(layout_data[loop].id);
-            layout += "<section class='span4 articles-list'><a href='/post.html?layout_id="+layout_data[loop].id+"'><h1>"
+            layout += "<section class='span4 articles-list'><a href='/postList.html?layout_id="+layout_data[loop].id+"'><h1>"
                         + layout_data[loop].name+"</h1></a><ul class='articles'>";
             for(var loop2 = 0 ; loop2 < post_data.length && loop2 < 6; loop2 ++) {
-                layout += "<li class='article-entry standard'><h4><a href='single.html'>" +
+                layout += "<li class='article-entry standard'><h4><a href='post.html'>" +
                                 post_data[loop2].title + "</a></h4>";
                 layout += '<span class="article-meta">时间:'+dateFormat(post_data[loop2].create_date)
                         +'<a href="#" title="View all posts in Server &amp; Database">发帖用户:'
