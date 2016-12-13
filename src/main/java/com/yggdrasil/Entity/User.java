@@ -31,13 +31,13 @@ public class User {
     private String phone;
 
     @Column
-    private String acc_point;
+    private int acc_point;
 
     @Column
-    private String group_id;
+    private int group_id;
 
     @Column
-    private String authority_id;
+    private int authority_id;
 
     public String getId() {
         return id;
@@ -87,27 +87,27 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAcc_point() {
+    public int getAcc_point() {
         return acc_point;
     }
 
-    public void setAcc_point(String acc_point) {
+    public void setAcc_point(int acc_point) {
         this.acc_point = acc_point;
     }
 
-    public String getGroup_id() {
+    public int getGroup_id() {
         return group_id;
     }
 
-    public void setGroup_id(String group_id) {
+    public void setGroup_id(int group_id) {
         this.group_id = group_id;
     }
 
-    public String getAuthority_id() {
+    public int getAuthority_id() {
         return authority_id;
     }
 
-    public void setAuthority_id(String authority_id) {
+    public void setAuthority_id(int authority_id) {
         this.authority_id = authority_id;
     }
 }

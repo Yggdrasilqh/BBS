@@ -17,27 +17,27 @@ import java.util.List;
 public class LayoutControl {
 
     private LayoutRepository layoutRepository;
+
     @Autowired
     public LayoutControl(LayoutRepository layoutRepository) {
         this.layoutRepository = layoutRepository;
     }
 
-    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
-   public List<Layout> showLayout(){
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public List<Layout> showLayout() {
         return layoutRepository.findAll();
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String layoutInsert(Layout layout){
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String layoutInsert(Layout layout) {
         layoutRepository.save(layout);
         return "success";
     }
 
-    @RequestMapping(value = "/deleteById",method = RequestMethod.POST)
-    public String layoutDelete(int id){
+    @RequestMapping(value = "/deleteById", method = RequestMethod.POST)
+    public String layoutDelete(int id) {
         layoutRepository.delete(id);
         return "success";
     }
-
 
 }

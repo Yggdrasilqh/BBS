@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Welcome</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!----webfonts--->
+<!---//webfonts--->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+
+.moveH{
+  -webkit-animation:headmove 2s; /* Safari and Chrome */
+}
+@keyframes headmove
+{
+  0% {font-size:0px;}
+30% {font-size:0px;}
+100% {font-size: 70px;}
+}
+
+
+.bigInput{
+  -webkit-animation:big 2.5s;
+}
+@keyframes big{
+    0% {opacity:0;}
+  50%   {opacity:0.1;}
+  100% {opacity:1;}
+}
+
+.InputMiss{
+  -webkit-animation:miss 2.5s;
+}
+@keyframes miss{
+    0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+
+.headMiss{
+  -webkit-animation:hdmiss 2.5s;
+}@keyframes hdmiss{
+  0% {font-size:119px;}
+  100% {font-size: 0px;}
+}
+
+</style>
+
+
+
+</head>
+<body id="login">
+  <div class="login-logo">
+  </div>
+  <h2 id="head2"class="form-heading moveH" style="font-size:70px">
+      锦城学院bbs
+  </h2>
+  <div class="app-cam">
+
+	  <form id="form1" class="bigInput" action="/login.action">
+		<input required="required" name="id" type="text" class="text" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '输入用户名';}" />
+          <br>
+		<input required="required" name="password" type="password" value="********" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '********';}" />
+          <br>
+		<input  class="submit" type="submit" value="登陆"/>
+		<div class="login-social-link">
+          <a href="/Register.html" class="twitter" style=" margin-bottom:600px;">
+              注册
+          </a>
+        </div>
+	</form>
+
+  </div>
+</body>
+</html>
