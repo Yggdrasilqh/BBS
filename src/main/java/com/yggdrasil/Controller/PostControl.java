@@ -1,7 +1,6 @@
 package com.yggdrasil.Controller;
 
 import com.yggdrasil.Entity.Post;
-import com.yggdrasil.Entity.User;
 import com.yggdrasil.Repository.PostRepository;
 import com.yggdrasil.Repository.UserRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +38,7 @@ public class PostControl {
         postRepository.delete(id);
         return "success";
     }
-    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
-    public User getPostUser(String id){
-        return userRepository.findById(id);
-    }
+
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String inertComment(Post post){
         postRepository.save(post);
