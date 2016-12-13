@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,7 +28,15 @@ public class CommentControl {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String inertComment(Comment comment){
+    public String inertComment(HttpServletRequest httpServletRequest,int post_id,String content){
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        Comment comment = new Comment();
+        comment.setCreate_user_id(user.getId());
+        comment.setContent(content);
+        comment.setPost_id(post_id);
+        System.out.println(content);
+
+
         commentRepository.save(comment);
         return "success";
     }

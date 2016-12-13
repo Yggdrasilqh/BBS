@@ -1,0 +1,241 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>
+<html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>
+<html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-US"> <!--<![endif]-->
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Knowledge Base Theme</title>
+
+    <link rel="shortcut icon" href="images/favicon.png"/>
+
+
+    <!-- Style Sheet-->
+    <link rel="stylesheet" href="style.css"/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/main5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all'/>
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+
+
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="index-2.html" title="Knowledge Base Theme">
+                    <img src="images/logo.png" alt="Knowledge Base Theme">
+                </a>
+                <span class="tag-line">Premium WordPress Theme</span>
+            </div>
+
+
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container">
+                    <ul id="menu-top-menu" class="clearfix">
+                        <li><a href="index-2.html">Home</a></li>
+                        <li><a href="home-categories-description.html">Home 2</a></li>
+                        <li><a href="home-categories-articles.html">Home 3</a></li>
+                        <li><a href="postList.html">Articles List</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="#">Skins</a>
+                            <ul class="sub-menu">
+                                <li><a href="blue-skin.html">Blue Skin</a></li>
+                                <li><a href="green-skin.html">Green Skin</a></li>
+                                <li><a href="red-skin.html">Red Skin</a></li>
+                                <li><a href="index-2.html">Default Skin</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">More</a>
+                            <ul class="sub-menu">
+                                <li><a href="full-width.html">Full Width</a></li>
+                                <li><a href="elements.html">Elements</a></li>
+                                <li><a href="page.html">Sample Page</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Main Navigation -->
+
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+
+            <!-- start of page content -->
+            <div class="span12 page-content">
+                <article class=" type-post format-standard hentry clearfix" id="post">
+
+
+
+                </article>
+                <section>
+                    <div id="comments">
+
+                    </div>
+                    <div id="respond">
+
+                        <h3>Leave a Reply</h3>
+
+                        <div class="cancel-comment-reply">
+                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here
+                                to cancel reply.</a>
+                        </div>
+
+
+                        <form action="#" method="post" id="commentform">
+
+                            <div>
+                                <label for="comment">评论</label>
+                                <textarea class="span8" name="comment" id="comment" cols="70" rows="10"
+                                          style="resize: none"></textarea>
+                            </div>
+
+                            <div>
+                                <input class="btn" name="submit" type="button" id="submit" value="Submit Comment">
+                            </div>
+
+                        </form>
+
+                    </div>
+                </section><!-- end of comments -->
+
+            </div>
+            <!-- end of page content -->
+        </div>
+    </div>
+</div>
+<!-- End of Page Container -->
+
+
+<!-- script -->
+<script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
+<script type='text/javascript' src='js/jflickrfeed.js'></script>
+<script type='text/javascript' src='js/jquery.liveSearch.js'></script>
+<script type='text/javascript' src='js/jquery.form.js'></script>
+<script type='text/javascript' src='js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/custom.js'></script>
+<script type='text/javascript' src='js/tool.js'></script>
+<script>
+    $(function () {
+        showPost();
+        $("#submit").click(function () {
+            saveComment();
+        })
+
+    });
+
+    function saveComment() {
+        var post_id = getQueryString("id");
+        var content = $("#comment").val();
+        alert(content);
+        $.ajax({
+            url:'/login/comment/add',
+            type:'post',
+            data:{"post_id":post_id,"content":content},
+            success:function () {
+                showPost();
+            }
+        })
+    }
+
+    function showPost() {
+        $("#comments").empty();
+        $("#post").empty();
+        var str_post = "";
+        var str_comment="";
+        //var str_commentnum="";
+        var post_id = getQueryString("id");
+        var layout_id = getQueryString("layout_id");
+        var post = getPost(post_id,layout_id);
+        var commentList = getComment(post_id);
+        if(typeof commentList == "object") {
+            //alert(112);
+            //str_commentnum+='<h3 id="comments-title">'+commentList.length + '个评论'+'</h3>';
+            //$(".page-content").parent(str_commentnum);
+            str_post += '<h1 class="post-title"><a href="#">' + post[0].title + '</a></h1>';
+            str_post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(post[0].create_date) + '</span>';
+            str_post += '<span class="comments"><a href="#">' + commentList.length + '个评论' + '</a></span></div>';
+            str_post += '<p>' + post[0].content + '</p>';
+            $("#post").prepend(str_post);
+
+
+            str_comment += '<h3 id="comments-title">' + commentList.length + '个评论' + '</h3>';
+            for (var i = 0; i < commentList.length; i++) {
+                str_comment += '<ol class="commentlist"><li class="comment even thread-even depth-1" id="li-comment-2"><article id="comment-2"> <div class="comment-meta"> <h5 class="author"> <cite class="fn"> <a href="#" rel="external nofollow" class="url">'
+                        + getUserNameById(commentList[i].create_user_id) + '</a></cite></h5>';
+                str_comment += '<p class="date"> <a href="#"> <time>' + getLocalTime(commentList[i].create_data) + '</time> </a> </p> </div>';
+                str_comment += '<div class="comment-body"> <p>' + commentList[i].content + '</p> </div></article></li></ol>';
+            }
+        }
+        else {
+            str_comment = "您没有权限";
+            $("#respond").empty();
+        }
+        $("#comments").prepend(str_comment);
+
+    }
+
+    function getPost(id,layout_id) {
+        var post = "";
+        $.ajax({
+            url: '/login/post/getById',
+            type: 'get',
+            async: false,
+            data: {"id": id,"layout_id":layout_id},
+            success: function (data) {
+                post = data;
+            }
+        });
+        return post;
+    }
+
+    function getComment(id) {
+        var commentList = "";
+        $.ajax({
+            url: '/login/comment/getAllByPostId',
+            type: 'get',
+            async: false,
+            data: {"post_id": id},
+            success: function (data) {
+                commentList = data;
+            }
+        })
+        return commentList;
+    }
+
+
+</script>
+</body>
+</html>

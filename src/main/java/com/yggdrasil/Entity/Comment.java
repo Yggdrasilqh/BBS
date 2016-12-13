@@ -3,6 +3,7 @@ package com.yggdrasil.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by chenq on 2016/12/8,008.
@@ -15,7 +16,7 @@ public class Comment {
     @Column
     private String content;
     @Column
-    private String create_date;
+    private Date create_date;
     @Column
     private int post_id;
     @Column
@@ -37,11 +38,11 @@ public class Comment {
         this.content = content;
     }
 
-    public String getCreate_data() {
+    public Date getCreate_data() {
         return create_date;
     }
 
-    public void setCreate_data(String create_data) {
+    public void setCreate_data(Date create_data) {
         this.create_date = create_data;
     }
 
