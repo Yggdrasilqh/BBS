@@ -3,37 +3,29 @@ package com.yggdrasil.Interceptor;
 import com.yggdrasil.Entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * 进入版面拦截
+ * Created by Yggdrasil on 16/12/14.
  */
-public class LayoutGroupInterceptor implements HandlerInterceptor {
+public class ModifyPostIntercepter implements HandlerInterceptor {
 
-    private int layout_group_id = -1;
-
+    private boolean flag = false;
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        layout_group_id = -1;
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
         int layout_id = Integer.parseInt(httpServletRequest.getParameter("layout_id"));
-        Map<Integer, Integer> layoutMap = (Map) httpServletRequest.getSession().getAttribute("layoutMap");
-        layoutMap.forEach((id, group_id) -> {
-            if (id == layout_id)
-                layout_group_id = group_id;
+        flag = false;
+        Map<String, Integer> layoutMap = (Map) httpServletRequest.getSession().getAttribute("moderatorMap");
+        layoutMap.forEach((user_id, moderator_layout_id) -> {
+            if (user.getId().equals(user_id) && moderator_layout_id == layout_id)
+                flag = true;
         });
-        if (httpServletRequest.getSession().getAttribute("user") != null) {
-            User user = (User) httpServletRequest.getSession().getAttribute("user");
-            if (user.getGroup_id() >= layout_group_id && layout_group_id >= 0) {
-                return true;
-            } else {
-                httpServletResponse.sendRedirect("/layout.html");
-                return false;
-            }
-        }
-        httpServletResponse.sendRedirect("/login.html");
-        return false;
+        return user.getAuthority_id() == 2 || flag;
     }
 
     @Override

@@ -82,3 +82,17 @@ CREATE TRIGGER Auto_Time_Comment
   BEGIN
     SET new.create_date = now();
   END;
+ CREATE TRIGGER Auto_Delete_Layout
+   BEFORE DELETE ON Layout
+   FOR EACH ROW
+   BEGIN
+     DELETE FROM Comment WHERE post_id = (SELECT id FROM Post WHERE layout_id = old.id);
+     DELETE FROM Post WHERE layout_id = old.id;
+   END;
+
+ CREATE TRIGGER Auto_Delete_Post
+   BEFORE DELETE ON Post
+   FOR EACH ROW
+   BEGIN
+     DELETE FROM Comment WHERE post_id = old.id;
+   END;

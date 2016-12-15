@@ -37,3 +37,46 @@ function dateFormat(timestamp) {
     //info += date.getSeconds() + "秒";
     return date;
 }
+
+function userAuthority() {
+    var authority;
+    $.ajax({
+        url: '/login/user/getCurrAuthority',
+        async: false,
+        success: function (data) {
+            authority = data;
+        }
+    });
+    return authority;
+}
+
+function getUserGroup() {
+    var userGroup;
+    $.ajax({
+        url: '/login/layout/getUserGroup',
+        async: false,
+        success: function (data) {
+            userGroup = data;
+        }
+    });
+    return userGroup;
+}
+
+function addLayout(layout) {
+    alert(layout);
+    $.ajax({
+        url: '/login/layout/add',
+        async: false,
+        contentType: 'application/json',
+        type: 'post',
+        data: layout
+    })
+}
+function deleteLayout(id){
+    alert(id);
+    $.ajax({
+        url: '/login/layout/deleteById',
+        async:false,
+        data: {'id':id},
+    })
+}
