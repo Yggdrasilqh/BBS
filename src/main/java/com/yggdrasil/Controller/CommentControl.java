@@ -34,13 +34,11 @@ public class CommentControl {
         comment.setCreate_user_id(user.getId());
         comment.setContent(content);
         comment.setPost_id(post_id);
-        System.out.println(content);
-
 
         commentRepository.save(comment);
         return "success";
     }
-    @RequestMapping(value = "/deleteById",method = RequestMethod.POST)
+    @RequestMapping(value = "/ModifyDeleteById",method = RequestMethod.POST)
     public String deleteComment(int id){
         commentRepository.delete(id);
         return "success";
