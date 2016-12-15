@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import javax.annotation.Resources;
 
 /**
- * Created by Yggdrasil on 16/12/13.
+ * 增删改版面
  */
 @RestController
 @RequestMapping("/login/modifyLayout/")
@@ -31,5 +31,15 @@ public class ModifyLayout {
     private String deleteLayout(int id) {
         layoutRepository.delete(id);
         return "success";
+    }
+
+    @RequestMapping("/modify")
+    private String modifyLayout(Layout layout){
+        if(layoutRepository.exists(layout.getId())) {
+            layoutRepository.save(layout);
+            return "success";
+        }
+        else
+            return "false";
     }
 }
