@@ -27,11 +27,12 @@ function getUserNameById(id) {
 
 
 
-function getUserId() {
+function getDeleteAuthority(user_id) {
     var id = "";
     $.ajax({
-        url:'/login/user/getUserId',
+        url:'/login/user/getDeleteAuthority',
         type:'get',
+        data:{'id':user_id},
         async:false,
         success:function (data) {
             id=data;

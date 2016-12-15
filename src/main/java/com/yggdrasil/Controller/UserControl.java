@@ -20,16 +20,23 @@ public class UserControl {
     UserRepository userRepository;
 
     @RequestMapping(value = "/getName",method = RequestMethod.GET)
-    public String getPostUser(String id){
+    public String getPostUserName(String id){
         return userRepository.findById(id).getName();
     }
 
 
 
     @RequestMapping(value = "getUserId",method = RequestMethod.GET)
-    public String getUserId(HttpServletRequest httpServletRequest){
+    public String getDeleteAuthority(HttpServletRequest httpServletRequest){
+        String result="";
         User user = (User)httpServletRequest.getSession().getAttribute("user");
-        return user.getId();
+        if(user.getAuthority_id()==2)
+            result = "true";
+
+
+
+
+        return result;
     }
 
 

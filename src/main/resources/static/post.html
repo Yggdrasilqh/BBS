@@ -192,7 +192,7 @@
             str_post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(post[0].create_date) + '</span>';
             str_post += '<span class="comments"><a href="#">' + commentList.length + '个评论' + '</a></span>';
             str_post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(post[0].user_id) + '</a></span>';
-            if(getUserId()==post[0].user_id){
+            if(getDeleteAuthority(post[0].user_id)==){
                 str_post += '<span id="deletePost" style="float: right"><a onclick="deletePost('+post[0].id+')">删除</a></span>';
             }
             str_post += '</div><p>' + post[0].content + '</p>';
