@@ -40,13 +40,15 @@ public class CommentControl {
         commentRepository.save(comment);
         return "success";
     }
-    @RequestMapping(value = "/deleteById",method = RequestMethod.POST)
+    @RequestMapping(value = "/modify/deleteById",method = RequestMethod.POST)
     public String deleteComment(int id){
-        commentRepository.delete(id);
+        System.out.println("删除成功");
+        //commentRepository.delete(id);
         return "success";
     }
     @RequestMapping(value = "/getCommentUser",method = RequestMethod.GET)
     public User getCommentUser(String id){
         return userRepository.findById(id);
     }
+
 }

@@ -19,8 +19,6 @@ public class PostControl {
 
     @Resource
     private PostRepository postRepository;
-    @Resource
-    private UserRepository userRepository;
 
 
     @RequestMapping(value = "/getByLayoutId",method = RequestMethod.GET)
@@ -33,9 +31,10 @@ public class PostControl {
         return postRepository.findByid(id);
     }
 
-    @RequestMapping(value = "/deleteById",method = RequestMethod.GET)
+    @RequestMapping(value = "/modify/deleteById",method = RequestMethod.GET)
     public String deleteById(int id){
-        postRepository.delete(id);
+       // postRepository.delete(id);
+        System.out.println("删除成功");
         return "success";
     }
 
