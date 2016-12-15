@@ -1,0 +1,126 @@
+<html>
+<head>
+    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/jquery-form.js"></script>
+    <script src="js/my.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <style type="text/css">
+
+        .moveH {
+            -webkit-animation: headmove 2s; /* Safari and Chrome */
+        }
+
+        @keyframes headmove {
+            0% {
+                font-size: 0px;
+            }
+            30% {
+                font-size: 0px;
+            }
+            100% {
+                font-size: 70px;
+            }
+        }
+
+        .bigInput {
+            -webkit-animation: big 2.5s;
+        }
+
+        @keyframes big {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .InputMiss {
+            -webkit-animation: miss 2.5s;
+        }
+
+        @keyframes miss {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .headMiss {
+            -webkit-animation: hdmiss 2.5s;
+        }
+
+        @keyframes hdmiss {
+            0% {
+                font-size: 119px;
+            }
+            100% {
+                font-size: 0px;
+            }
+        }
+
+    </style>
+
+
+</head>
+<body id="login">
+<div class="login-logo">
+</div>
+<h2 id="head2" class="form-heading moveH" style="font-size:70px">
+    加入锦城BBS
+</h2>
+<div class="app-cam">
+
+    <form id="form1" class="bigInput" action="/register.action">
+        <h2 id="wrong-user" hidden>帐号重复，请重新输入</h2>
+        帐号： <input required="required" name="id" type="text" class="text" placeholder="输入帐号"/>
+        <br>
+        用户名：<input required="required" name="name" type="text" class="text" placeholder="输入帐号"/>
+        密码：   <input required="required" name="password" type="password" placeholder="输入密码"/>
+        <br>
+        验证密码：<input required="required" name="rePassword" type="password" placeholder="重新输入密码"/>
+        选择性别：<input title="选择性别" type="radio" name="sex" value="男" required checked>男
+                <input title="选择性别" type="radio" name="sex" value="女" required>女<br>
+                <br>
+        邮箱：   <input name="email" placeholder="输入邮箱" type="text" required />
+        电话：<input type="text" name="phone" placeholder="输入电话" class="text" >
+        <input class="submit" type="submit" value="确认"/>
+    </form>
+
+</div>
+
+<script>
+    $(function(){
+        $('.submit').click(function(){
+            var data = $('#form1').serializeObject();
+            data = JSON.stringify(data);
+            if(register(data))
+                window.location.href = 'login.html';
+            else
+                $('#wrong-user').show();
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
