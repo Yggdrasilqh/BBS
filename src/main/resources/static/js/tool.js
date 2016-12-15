@@ -24,3 +24,18 @@ function getUserNameById(id) {
     });
     return name;
 }
+
+
+
+function getUserId() {
+    var id = "";
+    $.ajax({
+        url:'/login/user/getUserId',
+        type:'get',
+        async:false,
+        success:function (data) {
+            id=data;
+        }
+    });
+    return id;
+}

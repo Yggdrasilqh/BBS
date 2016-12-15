@@ -86,7 +86,17 @@
     </header>
 </div>
 <!-- End of Header -->
+<div class="search-area-wrapper">
+    <div class="search-area container">
+        <h3 class="search-header" id="layout-name">Have a Question?</h3>
+        <p class="search-tag-line" id="layout-info">If you have any question you can ask below or enter what you are looking for!</p>
 
+        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off" novalidate="novalidate">
+            <input class="search-btn postPush" type="button" value="我要发贴">
+            <div id="search-error-container"></div>
+        </form>
+    </div>
+</div>
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
@@ -115,8 +125,29 @@
 <script type='text/javascript' src='js/tool.js'></script>
 <script>
     $(function () {
-        var post = '';
         var layoutId = getQueryString("layout_id");
+        flashLayoutInfo(layoutId);
+        showPostList(layoutId);
+        $(".postPush").click(function () {
+            window.location.href="/pushPost.html?layout_id="+layoutId;
+        })
+    });
+
+    function flashLayoutInfo(layoutId) {
+        $.ajax({
+            url:'/login/layout/getById',
+            type:'get',
+            data:{"id":layoutId},
+            success:function (data) {
+                $("#layout-name").text(data.name);
+                $("#layout-info").text(data.info);
+            }
+        })
+    }
+
+    function showPostList(layoutId) {
+        var post = '';
+
         //alert(layoutId);
         $("#post").empty();
         $.ajax({
@@ -128,15 +159,15 @@
                     post += "<article class=\"format-standard type-post hentry clearfix\" id=\"post\"><header class=\"clearfix\"><h3 class=\"post-title\">";
                     post += '<a class="post -post-title" href="post.html?id=' + data[i].id + '&layout_id='+layoutId+'">' + data[i].title + '</a> </h3>';
                     post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(data[i].create_date) + '</span>';
-                    post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(data[i].user_id) + '</a></span> </div></header>';
+                    post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(data[i].user_id) + '</a></span>';
+                    post += '</div></header>';
                     post += '<p>' + data[i].content.substr(0, 100) + "....." + '</p></article>';
                 }
                 $("#post").prepend(post);
                 post = '';
             }
         })
-    });
-
+    }
 
 
 </script>
