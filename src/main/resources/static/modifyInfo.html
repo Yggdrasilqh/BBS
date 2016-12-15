@@ -32,6 +32,12 @@
     <!--margin-left: 0px !important;-->
     <!--}-->
     <!--</style>-->
+    <style>
+        .my-input {
+            height: 30px;
+            width: 200px;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,7 +81,7 @@
                                 <li><a href="page.html">Sample Page</a></li>
                             </ul>
                         </li>
-                        <li><a href="modifyInfo.html">个人信息</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <select class="responsive-nav">
@@ -124,7 +130,7 @@
 <!-- Start of Search Wrapper -->
 <div class="search-area-wrapper">
     <div class="search-area container">
-        <h3 class="search-header">锦城学院论坛</h3>
+        <h3 class="search-header"> 信息修改</h3>
         <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
 
@@ -138,58 +144,50 @@
         <div class="row">
 
             <!--一行两个版面-->
-            <div class="span8 page-content" style="width: 1560px">
-                <div class="row separator" id="layout-container">
-                    <section class="span4 articles-list">
-                        <a href="post.html">
-                            <h1>版面名字1</h1>
-                        </a>
-                        <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="post.html">帖子</a></h4>
-                                <span class="article-meta">时间<a href="#"
-                                                                title="View all posts in Server &amp; Database">发帖用户</a></span>
-                            </li>
-                        </ul>
-                    </section>
-                </div>
-                <div class="span8 page-content" style="width: 1560px" >
-                    <form class="row" action="/login/layout/add" method="post" id="add-layout" hidden>
-                        <div>
-                            <label for="name">新增板块名<span>*</span> </label>
-                        </div>
-                        <div>
-                            <input type="text" name="name" id="name" class="required input-xlarge" value=""
-                                   title="* Please provide name">
-                        </div>
+            <div class="span8 page-content" style="width: 1560px" >
+                <form class="row" action="/login/layout/add" method="post" id="change-info" >
+                    <div>
+                        <label for="name">用户名<span>*</span> </label>
+                    </div>
+                    <div>
+                        <input style="height: 40px;width: 300px;" type="text" name="name" id="name" class="required input-xlarge" value=""
+                               title="* Please provide name" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="password">密码<span>*</span> </label>
+                    </div>
+                    <div>
+                        <input style="height: 40px;width: 300px;" type="password" name="password" id="password" class="required input-xlarge" value=""
+                               title="* Please provide name" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="email">Email<span>*</span> </label>
+                    </div>
+                    <div>
+                        <input style="height: 40px;width: 300px;" type="email" name="email" id="email" class="required input-xlarge" value=""
+                               title="* Please provide name" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="phone">电话<span>*</span> </label>
+                    </div>
+                    <div>
+                        <input style="height: 40px;width: 300px;" type="text" name="phone" id="phone" class="required input-xlarge" value=""
+                               title="* Please provide name" required>
+                    </div>
+                    <br>
 
-                        <div>
-                            <label for="group_id">用户组 <span>*</span></label>
-                        </div>
-                        <div>
-                            <select id="group_id" name="group_id">
-                                <option>1</option>
-                            </select>
-                        </div>
+                    <div>
+                        <input type="submit" name="submit" value="Send Message" class="btn btn-inverse">
+                        <img src="images/loading.gif" id="contact-loader" alt="Loading...">
+                    </div>
 
-                        <div>
-                            <label for="info">详细信息<span>*</span> </label>
-                        </div>
-                        <div>
-                            <textarea name="info" id="info" class="required span6" rows="6"
-                                      title="* Please enter your message"></textarea>
-                        </div>
+                    <div class="span6 offset2 error-container"></div>
+                    <div class="span8 offset2" id="message-sent"></div>
 
-                        <div>
-                            <input type="submit" name="submit" value="Send Message" class="btn btn-inverse">
-                            <img src="images/loading.gif" id="contact-loader" alt="Loading...">
-                        </div>
-
-                        <div class="span6 offset2 error-container"></div>
-                        <div class="span8 offset2" id="message-sent"></div>
-
-                    </form>
-                </div>
+                </form>
             </div>
             <!-- end of page content -->
 
@@ -219,79 +217,49 @@
 <script type="text/javascript" src="js/custom.js"></script>
 <script src="js/my.js"></script>
 <script src="js/tool.js"></script>
+<script src="js/jquery-3.1.1.js"></script>
 <script src="js/jquery-form.js"></script>
+
 
 <script type="text/javascript">
 
-    function showLayout() {
-        $('#layout-container').empty();
-        var layout_data = getAllLayout();
-        var layout = '';
-        if(typeof layout_data == 'object') {
-            for (var loop = 0; loop < layout_data.length; loop++) {
-                var post_data = getPostByLayoutId(layout_data[loop].id);
-                layout += "<section class='span4 articles-list'><a href='/postList.html?layout_id=" + layout_data[loop].id + "'><h1>"
-                        + layout_data[loop].name + "</h1></a><a href='' name='delete-layout' id=" + layout_data[loop].id + " hidden style='margin-left: 90%'>删除</a><ul class='articles'>";
-                if (typeof post_data == 'object') {
-                    for (var loop2 = 0; loop2 < post_data.length && loop2 < 6; loop2++) {
-                        layout += "<li class='article-entry standard'><h4><a href='post.html?id=" + post_data[loop2].id + "&layout_id=" + layout_data[loop].id + "'>" +
-                                post_data[loop2].title + "</a></h4>";
-                        layout += '<span class="article-meta">时间:' + dateFormat(post_data[loop2].create_date)
-                                + '发帖用户:<a href="#" title="View all posts in Server &amp; Database">'
-                                + getUserNameById(post_data[loop2].user_id) + '</a></span></li>';
-                    }
-                } else {
-                    layout += '你没有权限查看该版面帖子';
-                }
-                layout += "</ul></section>";
-            }
-        } else {
-            layout += "<h1>请先登陆</h1>";
-        }
-        $('#layout-container').append(layout);
-    }
 
-    function showManageLayout() {
-        if(userAuthority() == 2) {
-            $('#add-layout').show();
-            $('a[name=delete-layout]').show();
-            var user_group_data = getUserGroup();
-            var user_group = '';
-            for(var loop = 0 ; loop < user_group_data.length ; loop++) {
-                user_group += '<option value='+user_group_data[loop].id+'>'+user_group_data[loop].name+'  以上的用户'+'</option>';
-            }
-            $('#add-layout select').append(user_group);
-            addLayoutSubmitClick();
-            deleteLayoutClick();
-        }
-    }
-
-    function addLayoutSubmitClick() {
-        $('#add-layout').find('input[type=submit]').click(function(){
-            var data = $('#add-layout').serializeObject();
+    function clickSubmit(){
+        $('input[type=submit]').click(function(){
+            var data = $('#change-info').serializeObject();
             data = JSON.stringify(data);
-            alert(data);
-            addLayout(data);
-            refresh();
-            return false;
-        });
-    }
-    function deleteLayoutClick(){
-        $('a[name=delete-layout]').click(function() {
-            var id = $(this).attr('id');
-            deleteLayout(id);
-            refresh();
+            if(modifyInfo(data)) {
+                alert("修改成功");
+                window.location.href = 'layout.html';
+            }
+            else
+                alert('失败');
             return false;
         });
     }
 
-    function refresh() {
-        showLayout();
-        showManageLayout();
+    function getInfo() {
+        var info;
+        $.ajax({
+            url: '/login/user/getCurr',
+            async: false ,
+            success: function (data) {
+                info = data;
+            }
+        });
+        return info;
+    }
+
+    function showInfo() {
+        var info = getInfo();
+        $('#name').val(info.name);
+        $('#email').val(info.email);
+        $('#phone').val(info.phone);
     }
 
     $(function () {
-        refresh();
+        clickSubmit();
+        showInfo();
     })
 </script>
 
