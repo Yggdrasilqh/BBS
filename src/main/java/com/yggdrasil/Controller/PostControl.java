@@ -1,6 +1,7 @@
 package com.yggdrasil.Controller;
 
 import com.yggdrasil.Entity.Post;
+import com.yggdrasil.Entity.User;
 import com.yggdrasil.Repository.PostRepository;
 import com.yggdrasil.Repository.UserRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -20,6 +22,8 @@ public class PostControl {
     @Resource
     private PostRepository postRepository;
 
+    @Resource
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/getByLayoutId",method = RequestMethod.GET)
     public List<Post> getAllContentByPostId(int layout_id){
@@ -33,13 +37,29 @@ public class PostControl {
 
     @RequestMapping(value = "/modify/deleteById",method = RequestMethod.GET)
     public String deleteById(int id){
-       // postRepository.delete(id);
-        System.out.println("删除成功");
+        postRepository.delete(id);
+        //System.out.println("删除成功");
+        return "success";
+    }
+    @RequestMapping(value = "/modify/deleteAndReduceById",method = RequestMethod.GET)
+    public String deleteAndReduceById(int id){
+        Post post = postRepository.findOne(id);
+        User user = userRepository.findOne(post.getUser_id());
+        postRepository.delete(id);
+        user.setAcc_point(user.getAcc_point()-3);
+        userRepository.save(user);
         return "success";
     }
 
+
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String inertComment(Post post){
+    public String inertComment(HttpServletRequest httpServletRequest,int layout_id,String title,String content){
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContent(content);
+        post.setLayout_id(layout_id);
+        post.setUser_id(user.getId());
         postRepository.save(post);
         return "success";
     }

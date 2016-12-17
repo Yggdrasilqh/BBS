@@ -24,3 +24,21 @@ function getUserNameById(id) {
     });
     return name;
 }
+
+function openLogin() {
+    window.location.href = "login.html"
+}
+
+function getDeleteAuthority(layout_id) {
+    var id = "";
+    $.ajax({
+        url:'/login/user/getDeleteAuthority',
+        type:'get',
+        data:{'layout_id':layout_id},
+        async:false,
+        success:function (data) {
+            id=data;
+        }
+    });
+    return id;
+}

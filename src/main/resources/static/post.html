@@ -96,7 +96,6 @@
                 <article class=" type-post format-standard hentry clearfix" id="post">
 
 
-
                 </article>
                 <section>
                     <div id="comments">
@@ -104,19 +103,11 @@
                     </div>
                     <div id="respond">
 
-                        <h3>Leave a Reply</h3>
-
-                        <div class="cancel-comment-reply">
-                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here
-                                to cancel reply.</a>
-                        </div>
-
-
                         <form action="#" method="post" id="commentform">
 
                             <div>
                                 <label for="comment">评论</label>
-                                <textarea class="span8" name="comment" id="comment" cols="70" rows="10"
+                                <textarea class="span12" name="comment" id="comment" cols="70" rows="8"
                                           style="resize: none"></textarea>
                             </div>
 
@@ -150,22 +141,59 @@
 <script>
     $(function () {
         showPost();
-        $("#submit").click(function () {
-            saveComment();
-        })
+        $("#submit").click(saveComment);
+        //$("#deletePost").click(deletePost);
 
     });
+
+    function deletePost(id) {
+        var layout_id = getQueryString("layout_id");
+        $.ajax({
+            url:'/login/post/modify/deleteById',
+            type:'get',
+            data:{'id':id,"layout_id":layout_id},
+            success:function () {
+                window.location.href="/postList.html?layout_id="+layout_id;
+            }
+        })
+    }
+
+
+    function deleteAndReduce(id) {
+        var layout_id = getQueryString("layout_id");
+        $.ajax({
+            url:'/login/post/modify/deleteAndReduceById',
+            type:'get',
+            data:{'id':id,"layout_id":layout_id},
+            success:function () {
+                window.location.href="/postList.html?layout_id="+layout_id;
+            }
+        })
+    }
+
+    function deleteComment(id) {
+        var post_id = getQueryString("id");
+        var layout_id = getQueryString("layout_id");
+        $.ajax({
+            url:'/login/comment/modify/deleteById',
+            type:'post',
+            data:{'id':id,"layout_id":layout_id},
+            success:function () {
+                window.location.href="/post.html?id="+post_id+"&layout_id="+layout_id;
+            }
+        })
+    }
 
     function saveComment() {
         var post_id = getQueryString("id");
         var content = $("#comment").val();
-        alert(content);
         $.ajax({
-            url:'/login/comment/add',
-            type:'post',
-            data:{"post_id":post_id,"content":content},
-            success:function () {
+            url: '/login/comment/add',
+            type: 'post',
+            data: {"post_id": post_id, "content": content},
+            success: function () {
                 showPost();
+                $("#comment").val("");
             }
         })
     }
@@ -174,20 +202,21 @@
         $("#comments").empty();
         $("#post").empty();
         var str_post = "";
-        var str_comment="";
-        //var str_commentnum="";
+        var str_comment = "";
         var post_id = getQueryString("id");
         var layout_id = getQueryString("layout_id");
-        var post = getPost(post_id,layout_id);
+        var post = getPost(post_id, layout_id);
         var commentList = getComment(post_id);
-        if(typeof commentList == "object") {
-            //alert(112);
-            //str_commentnum+='<h3 id="comments-title">'+commentList.length + '个评论'+'</h3>';
-            //$(".page-content").parent(str_commentnum);
-            str_post += '<h1 class="post-title"><a href="#">' + post[0].title + '</a></h1>';
+        if (typeof commentList == "object") {
+            str_post += '<h1 class="post-title"><a href="#">' + post[0].title   + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a></h1>';
             str_post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(post[0].create_date) + '</span>';
-            str_post += '<span class="comments"><a href="#">' + commentList.length + '个评论' + '</a></span></div>';
-            str_post += '<p>' + post[0].content + '</p>';
+            str_post += '<span class="comments"><a href="#">' + commentList.length + '个评论' + '</a></span>';
+            str_post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(post[0].user_id) + '</a></span>';
+            if(getDeleteAuthority(layout_id)=='true'){
+                str_post += '<span id="deletePost" style="float: right"><a onclick="deletePost('+post[0].id+')">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<a onclick="deleteAndReduce('+post[0].id+')" >删除并扣分</a></span>';
+            }
+            str_post += '</div><p>' + post[0].content + '</p>';
             $("#post").prepend(str_post);
 
 
@@ -196,24 +225,32 @@
                 str_comment += '<ol class="commentlist"><li class="comment even thread-even depth-1" id="li-comment-2"><article id="comment-2"> <div class="comment-meta"> <h5 class="author"> <cite class="fn"> <a href="#" rel="external nofollow" class="url">'
                         + getUserNameById(commentList[i].create_user_id) + '</a></cite></h5>';
                 str_comment += '<p class="date"> <a href="#"> <time>' + getLocalTime(commentList[i].create_data) + '</time> </a> </p> </div>';
-                str_comment += '<div class="comment-body"> <p>' + commentList[i].content + '</p> </div></article></li></ol>';
+                str_comment += '<div class="comment-body"> <p>' + commentList[i].content + '</p> </div>';
+                if(getDeleteAuthority(layout_id)=='true'){
+                    str_comment += "<a onclick='deleteComment("+commentList[i].id+")'>删除</a>"
+                }
+                str_comment += '</article></li></ol>';
             }
         }
         else {
-            str_comment = "您没有权限";
+            str_comment = "<br/><br/><br/><br/><br/><br/><h3 align='center' style='font-size: 80px'>您没有权限</h3><br/>" +
+                    "<h4 align='center' style='font-size: 30px'>即将返回登陆页面</h4> ";
             $("#respond").empty();
+            setTimeout(openLogin, 3000);
         }
         $("#comments").prepend(str_comment);
 
     }
 
-    function getPost(id,layout_id) {
+
+
+    function getPost(id, layout_id) {
         var post = "";
         $.ajax({
             url: '/login/post/getById',
             type: 'get',
             async: false,
-            data: {"id": id,"layout_id":layout_id},
+            data: {"id": id, "layout_id": layout_id},
             success: function (data) {
                 post = data;
             }
@@ -231,7 +268,7 @@
             success: function (data) {
                 commentList = data;
             }
-        })
+        });
         return commentList;
     }
 

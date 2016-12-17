@@ -40,6 +40,12 @@ public class LayoutControl {
         return "success";
     }
 
+    @RequestMapping(value = "/getById",method = RequestMethod.GET)
+    public Layout getById(int id){
+        return layoutRepository.findOne(id);
+    }
+
+
     @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public String layoutDelete(int id) {
         layoutRepository.delete(id);

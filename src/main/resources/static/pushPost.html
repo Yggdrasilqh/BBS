@@ -32,7 +32,6 @@
     <script src="js/html5.js"></script></script>
     <![endif]-->
 
-
 </head>
 
 <body>
@@ -59,7 +58,7 @@
                         <li><a href="index-2.html">Home</a></li>
                         <li><a href="home-categories-description.html">Home 2</a></li>
                         <li><a href="home-categories-articles.html">Home 3</a></li>
-                        <li class="current-menu-item"><a href="postList.html">Articles List</a></li>
+                        <li><a href="articles-list.html">Articles List</a></li>
                         <li><a href="faq.html">FAQs</a></li>
                         <li><a href="#">Skins</a>
                             <ul class="sub-menu">
@@ -86,97 +85,86 @@
     </header>
 </div>
 <!-- End of Header -->
-<div class="search-area-wrapper">
-    <div class="search-area container">
-        <h3 class="search-header" id="layout-name">Have a Question?</h3>
-        <p class="search-tag-line" id="layout-info">If you have any question you can ask below or enter what you are looking for!</p>
-
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off" novalidate="novalidate">
-            <input class="search-btn postPush" type="button" value="我要发贴">
-            <div id="search-error-container"></div>
-        </form>
-    </div>
-</div>
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
         <div class="row">
-
             <!-- start of page content -->
-            <div class="span12 main-listing" id="post">
+            <div class="span8 page-content">
+                <section id="comments">
+                    <div id="respond">
+                        <h3>编辑你要发表的帖子</h3>
+                        <div class="cancel-comment-reply">
+                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here
+                                to cancel reply.</a>
+                        </div>
+
+
+                        <form action="" method="post" id="commentform">
+
+
+                            <div hidden>
+                                <label>layout_id</label>
+                                <input class="span4" type="text" name="layout_id" value="" size="22">
+                            </div>
+                            <div>
+                                <label>标题</label>
+                                <input class="span4" type="text" id="title" value="" size="22">
+                            </div>
+
+                            <div>
+                                <label>内容：</label>
+                                <textarea class="span12" id="content" cols="70" rows="20"></textarea>
+                            </div>
+
+                            <div>
+                                <input class="btn" name="submit" type="button" id="submit" value="提交">
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </section><!-- end of comments -->
 
             </div>
             <!-- end of page content -->
+            <!-- start of sidebar -->
         </div>
     </div>
 </div>
 <!-- End of Page Container -->
 
-
 <!-- script -->
 <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
-<script type='text/javascript' src='js/jquery.easing.1.34e44.js?ver=1.3'></script>
-<script type='text/javascript' src='js/prettyphoto/jquery.prettyPhotoaeb9.js?ver=3.1.4'></script>
-<script type='text/javascript' src='js/jquery.liveSearchd5f7.js?ver=2.0'></script>
+<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
 <script type='text/javascript' src='js/jflickrfeed.js'></script>
-<script type='text/javascript' src='js/jquery.formd471.js?ver=3.18'></script>
-<script type='text/javascript' src='js/jquery.validate.minfc6b.js?ver=1.10.0'></script>
-<script type='text/javascript' src='js/custom5152.js?ver=1.0'></script>
+<script type='text/javascript' src='js/jquery.liveSearch.js'></script>
+<script type='text/javascript' src='js/jquery.form.js'></script>
+<script type='text/javascript' src='js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='js/custom.js'></script>
 <script type='text/javascript' src='js/tool.js'></script>
 <script>
     $(function () {
-        var layoutId = getQueryString("layout_id");
-        flashLayoutInfo(layoutId);
-        showPostList(layoutId);
-        $(".postPush").click(function () {
-            window.location.href="/pushPost.html?layout_id="+layoutId;
-        })
+        $("#submit").click(addPost);
     });
 
-    function flashLayoutInfo(layoutId) {
+
+    function addPost() {
+        var layout_id = getQueryString('layout_id');
+        var post_title = $("#title").val();
+        var post_content = $("#content").val();
         $.ajax({
-            url:'/login/layout/getById',
-            type:'get',
-            data:{"id":layoutId},
-            success:function (data) {
-                $("#layout-name").text(data.name);
-                $("#layout-info").text(data.info);
+            url:'/login/post/add',
+            type:'post',
+            data:{'layout_id':layout_id,'title':post_title,'content':post_content},
+            success:function () {
+                window.location.href="postList.html?layout_id="+layout_id;
             }
         })
     }
-
-    function showPostList(layoutId) {
-        var post = '';
-
-        //alert(layoutId);
-        $("#post").empty();
-        $.ajax({
-            url: "/login/post/getByLayoutId",
-            type: "get",
-            data: {"layout_id": layoutId},
-            success: function (data) {
-                if(typeof data != "object"){
-                    $(".search-area-wrapper").remove();
-                    post += "<br/><br/><br/><br/><br/><br/><h3 align='center' style='font-size: 80px'>您没有权限</h3>";
-
-                }
-                else {
-                    for (var i = 0; i < data.length; i++) {
-                        post += "<article class=\"format-standard type-post hentry clearfix\"><header class=\"clearfix\"><h3 class=\"post-title\">";
-                        post += '<a class="post -post-title" href="post.html?id=' + data[i].id + '&layout_id='+layoutId+'">' + data[i].title + '</a> </h3>';
-                        post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(data[i].create_date) + '</span>';
-                        post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(data[i].user_id) + '</a></span>';
-                        post += '</div></header>';
-                        post += '<p>' + data[i].content.substr(0, 100) + "....." + '</p></article>';
-                    }
-                }
-                $("#post").prepend(post);
-                post = '';
-            }
-        })
-    }
-
-
 </script>
+
 </body>
 </html>
