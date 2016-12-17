@@ -22,6 +22,8 @@ public class PostControl {
     @Resource
     private PostRepository postRepository;
 
+    @Resource
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/getByLayoutId",method = RequestMethod.GET)
     public List<Post> getAllContentByPostId(int layout_id){
@@ -35,10 +37,20 @@ public class PostControl {
 
     @RequestMapping(value = "/modify/deleteById",method = RequestMethod.GET)
     public String deleteById(int id){
-       // postRepository.delete(id);
-        System.out.println("删除成功");
+        postRepository.delete(id);
+        //System.out.println("删除成功");
         return "success";
     }
+    @RequestMapping(value = "/modify/deleteAndReduceById",method = RequestMethod.GET)
+    public String deleteAndReduceById(int id){
+        Post post = postRepository.findOne(id);
+        User user = userRepository.findOne(post.getUser_id());
+        postRepository.delete(id);
+        user.setAcc_point(user.getAcc_point()-3);
+        userRepository.save(user);
+        return "success";
+    }
+
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public String inertComment(HttpServletRequest httpServletRequest,int layout_id,String title,String content){

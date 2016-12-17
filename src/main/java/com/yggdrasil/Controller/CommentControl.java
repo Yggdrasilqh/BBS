@@ -38,7 +38,7 @@ public class CommentControl {
         commentRepository.save(comment);
         return "success";
     }
-    @RequestMapping(value = "/ModifyDeleteById",method = RequestMethod.POST)
+    @RequestMapping(value = "/modify/deleteById",method = RequestMethod.POST)
     public String deleteComment(int id){
         commentRepository.delete(id);
         return "success";
