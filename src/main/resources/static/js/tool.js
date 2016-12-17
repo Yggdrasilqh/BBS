@@ -25,14 +25,16 @@ function getUserNameById(id) {
     return name;
 }
 
+function openLogin() {
+    window.location.href = "login.html"
+}
 
-
-function getDeleteAuthority(user_id) {
+function getDeleteAuthority(layout_id) {
     var id = "";
     $.ajax({
         url:'/login/user/getDeleteAuthority',
         type:'get',
-        data:{'id':user_id},
+        data:{'layout_id':layout_id},
         async:false,
         success:function (data) {
             id=data;
