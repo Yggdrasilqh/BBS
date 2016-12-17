@@ -34,21 +34,17 @@ public class CommentControl {
         comment.setCreate_user_id(user.getId());
         comment.setContent(content);
         comment.setPost_id(post_id);
-        System.out.println(content);
-
 
         commentRepository.save(comment);
         return "success";
     }
     @RequestMapping(value = "/modify/deleteById",method = RequestMethod.POST)
     public String deleteComment(int id){
-        System.out.println("删除成功");
-        //commentRepository.delete(id);
+        commentRepository.delete(id);
         return "success";
     }
     @RequestMapping(value = "/getCommentUser",method = RequestMethod.GET)
     public User getCommentUser(String id){
         return userRepository.findById(id);
     }
-
 }
