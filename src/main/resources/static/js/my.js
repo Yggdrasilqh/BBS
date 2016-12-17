@@ -77,6 +77,39 @@ function deleteLayout(id){
     $.ajax({
         url: '/login/layout/deleteById',
         async:false,
-        data: {'id':id},
+        data: {'id':id}
     })
+}
+
+function register(user) {
+    alert(user);
+    var flag = false;
+    $.ajax({
+        url: '/register.action',
+        method: 'post',
+        contentType: 'application/json',
+        data: user,
+        async: false,
+        success: function (data) {
+            alert(data);
+            flag = data == 'success';
+        }
+    });
+    return flag;
+}
+
+function modifyInfo(user_info) {
+    var flag = false;
+    $.ajax({
+        url: '/login/user/modifyUserInfo',
+        method: 'post',
+        contentType: 'application/json',
+        data: user_info,
+        async: false,
+        success: function (data) {
+            alert(data);
+            flag = data == 'success';
+        }
+    });
+    return flag;
 }

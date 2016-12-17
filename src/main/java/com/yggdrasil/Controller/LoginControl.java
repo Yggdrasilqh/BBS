@@ -32,7 +32,6 @@ public class LoginControl {
     @RequestMapping(value = "/login.action")
     public String login(User user, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
-
         List<Layout> layoutList = layoutRepository.findAll();
         List<Moderator> moderatorList = moderatorRepository.findAll();
         Map<Integer, Integer> layoutMap = new HashMap<>();
