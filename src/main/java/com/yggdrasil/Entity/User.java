@@ -39,6 +39,7 @@ public class User {
     @Column
     private int authority_id;
 
+
     public String getId() {
         return id;
     }
@@ -100,7 +101,10 @@ public class User {
     }
 
     public void setGroup_id(int group_id) {
-        this.group_id = group_id;
+        if(group_id == 0)
+            this.group_id = 1;
+        else
+            this.group_id = group_id;
     }
 
     public int getAuthority_id() {
@@ -108,6 +112,10 @@ public class User {
     }
 
     public void setAuthority_id(int authority_id) {
-        this.authority_id = authority_id;
+        if (authority_id == 0) {
+            this.authority_id = 1;
+        } else {
+            this.authority_id = authority_id;
+        }
     }
 }
