@@ -65,7 +65,9 @@ public class PostControl {
     }
 
     @RequestMapping(value = "/updateById",method = RequestMethod.POST)
-    public String updatePostById(Post post){
+    public String updatePostById(int id,String content){
+        Post post= postRepository.findOne(id);
+        post.setContent(content);
         postRepository.save(post);
         return "success";
     }
