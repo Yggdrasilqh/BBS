@@ -57,4 +57,9 @@ public class LayoutControl {
         return userGroupRepository.findAll();
     }
 
+    @RequestMapping("/getName")
+    public String getName(int layout_id){
+        return layoutRepository.getOne(layout_id).getName();
+    }
+
 }
