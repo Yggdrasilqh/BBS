@@ -40,82 +40,19 @@
 <div class="header-wrapper">
     <header>
         <div class="container">
-
-
-            <div class="logo-container">
-                <!-- Website Logo -->
-                <a href="index-2.html" title="Knowledge Base Theme">
-                    <img src="images/logo.png" alt="Knowledge Base Theme">
-                </a>
-                <span class="tag-line">Premium WordPress Theme</span>
-            </div>
-
-
+            <h3 style="color: whitesmoke; font-weight: lighter">锦城学院</h3>
             <!-- Start of Main Navigation -->
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="index-2.html">Home</a></li>
-                        <li><a href="home-categories-description.html">Home 2</a></li>
-                        <li><a href="home-categories-articles.html">Home 3</a></li>
-                        <li><a href="articles-list.html">Articles List</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                        <li><a href="#">Skins</a>
-                            <ul class="sub-menu">
-                                <li><a href="blue-skin.html">Blue Skin</a></li>
-                                <li><a href="green-skin.html">Green Skin</a></li>
-                                <li><a href="red-skin.html">Red Skin</a></li>
-                                <li><a href="index-2.html">Default Skin</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">More</a>
-                            <ul class="sub-menu">
-                                <li><a href="full-width.html">Full Width</a></li>
-                                <li><a href="elements.html">Elements</a></li>
-                                <li><a href="page.html">Sample Page</a></li>
-                            </ul>
-                        </li>
+                        <li id="user-info" style="color: whitesmoke"></li>
+                        <li><a href="layout.html">所有版面</a></li>
                         <li><a href="modifyInfo.html">个人信息</a></li>
+                        <li><a href="login.html">退出登陆</a></li>
                     </ul>
                 </div>
-                <select class="responsive-nav">
-                    <option value="" selected="">Go to...</option>
-                    <option value="index-2.html"> Home</option>
-                    <option value="home-categories-description.html"> Home 2</option>
-                    <option value="home-categories-articles.html"> Home 3</option>
-                    <option value="articles-list.html"> Articles List</option>
-                    <option value="faq.html"> FAQs</option>
-                    <option value="#"> Skins</option>
-                    <option value="blue-skin.html"> - Blue Skin</option>
-                    <option value="green-skin.html"> - Green Skin</option>
-                    <option value="red-skin.html"> - Red Skin</option>
-                    <option value="index-2.html"> - Default Skin</option>
-                    <option value="#"> More</option>
-                    <option value="full-width.html"> - Full Width</option>
-                    <option value="elements.html"> - Elements</option>
-                    <option value="page.html"> - Sample Page</option>
-                    <option value="contact.html"> Contact</option>
-                </select><select class="responsive-nav">
-                <option value="" selected="">Go to...</option>
-                <option value="index-2.html"> Home</option>
-                <option value="home-categories-description.html"> Home 2</option>
-                <option value="home-categories-articles.html"> Home 3</option>
-                <option value="articles-list.html"> Articles List</option>
-                <option value="faq.html"> FAQs</option>
-                <option value="#"> Skins</option>
-                <option value="blue-skin.html"> - Blue Skin</option>
-                <option value="green-skin.html"> - Green Skin</option>
-                <option value="red-skin.html"> - Red Skin</option>
-                <option value="index-2.html"> - Default Skin</option>
-                <option value="#"> More</option>
-                <option value="full-width.html"> - Full Width</option>
-                <option value="elements.html"> - Elements</option>
-                <option value="page.html"> - Sample Page</option>
-                <option value="contact.html"> Contact</option>
-            </select>
             </nav>
             <!-- End of Main Navigation -->
-
         </div>
     </header>
 </div>
@@ -138,33 +75,53 @@
         <div class="row">
 
             <!--一行两个版面-->
-                <div class="panel-body no-padding">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr class="warning">
-                            <th>用户帐号</th>
-                            <th>用户姓名</th>
-                            <th>性别</th>
-                            <th>邮箱</th>
-                            <th>用户组</th>
-                            <th>权限</th>
-                            <th>拥有版面</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="user_table">
-                            <tr>
-                                <td>${c.user_id}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="panel-body no-padding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr class="warning">
+                        <th>用户帐号</th>
+                        <th>用户姓名</th>
+                        <th>性别</th>
+                        <th>邮箱</th>
+                        <th>用户组</th>
+                        <th>权限</th>
+                        <th>拥有版面</th>
+                    </tr>
+                    </thead>
+                    <tbody id="user_table">
+                    <tr>
+                        <td>${c.user_id}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <!-- end of page content -->
 
 
             <!-- start of sidebar -->
 
             <!-- end of sidebar -->
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span8 page-content" style="width: 1560px">
+                <p>用户版主设置：</p>
+                <div>
+                    <label>用户ID/姓名：
+                        <select class="span4" id="user">
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <label>版面ID/姓名：
+                        <select class="span4" id="moderator">
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <input type="button" id="save" value="保存"/>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -196,33 +153,66 @@
         var user_table_content = '';
         var user_data = getAllUserInfo();
         user_table.empty();
-        for (var loop = 0 ; loop < user_data.length ; loop++) {
-            var user_layouts  = user_data[loop].layouts;
+        for (var loop = 0; loop < user_data.length; loop++) {
+            var user_layouts = user_data[loop].layouts;
             var layouts;
-            for (var loop2 = 0 ; loop2 < user_layouts ; loop2++){
+            for (var loop2 = 0; loop2 < user_layouts; loop2++) {
                 layouts += user_layouts[loop2].layout_name;
             }
-            user_table_content += '<tr><td>'+user_data[loop].id+'</td>';
-            user_table_content += '<td>'+user_data[loop].name+'</td>';
-            user_table_content += '<td>'+user_data[loop].sex+'</td>';
-            user_table_content += '<td>'+user_data[loop].email+'</td>';
-            user_table_content += '<td>'+user_data[loop].group_name+'</td>';
-            user_table_content += '<td>'+authority(user_data[loop].authority_id)+'</td>';
-            user_table_content += '<td>'+user_data[loop].layouts+'</td><tr>';
+            user_table_content += '<tr><td>' + user_data[loop].id + '</td>';
+            user_table_content += '<td>' + user_data[loop].name + '</td>';
+            user_table_content += '<td>' + user_data[loop].sex + '</td>';
+            user_table_content += '<td>' + user_data[loop].email + '</td>';
+            user_table_content += '<td>' + user_data[loop].group_name + '</td>';
+            user_table_content += '<td>' + authority(user_data[loop].authority_id) + '</td>';
+            user_table_content += '<td>' + user_data[loop].layouts + '</td><tr>';
         }
         user_table.append(user_table_content);
     }
 
+    function showUserForLayout() {
+        var user_info = getAllUser();
+        var str = '';
+        for (var loop = 0; loop < user_info.length; loop++) {
+            str += '<option>' +user_info[loop].id+'/'+ user_info[loop].name + '</option>';
+        }
+        $("#user").empty();
+        $("#user").prepend(str);
+        str = '';
+        var layout_info = getAllLayout();
+        for (var i = 0; i < layout_info.length; i++) {
+            str += '<option>' + layout_info[i].id+'/'+layout_info[i].name + '</option>';
+        }
+        $("#moderator").empty();
+        $("#moderator").prepend(str);
+
+    }
+
     function authority(id) {
-        if(id == 1) {
+        if (id == 1) {
             return '普通用户';
-        } else if( id == 2) {
+        } else if (id == 2) {
             return '管理员';
         }
     }
 
+    function saveModerator() {
+        var user = $('#user').val();
+        var layout = $('#moderator').val();
+        $.ajax({
+            url:'/login/moderator/add',
+            type:'post',
+            data:{'user':user,'layout':layout},
+            success:function (data) {
+                window.location.href = '/userManage.html';
+            }
+        })
+    }
+
     $(function () {
         showUserTable();
+        showUserForLayout();
+        $("#save").click(saveModerator);
     })
 </script>
 

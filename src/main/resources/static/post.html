@@ -48,7 +48,7 @@
                         <li id="user-info" style="color: whitesmoke"></li>
                         <li><a href="layout.html">所有版面</a></li>
                         <li><a href="modifyInfo.html">个人信息</a></li>
-                        <li><a href="login.html">退出登陆</a> </li>
+                        <li><a href="login.html">退出登陆</a></li>
                     </ul>
                 </div>
             </nav>
@@ -123,11 +123,11 @@
     function deletePost(id) {
         var layout_id = getQueryString("layout_id");
         $.ajax({
-            url:'/login/post/modify/deleteById',
-            type:'get',
-            data:{'id':id,"layout_id":layout_id},
-            success:function () {
-                window.location.href="/postList.html?layout_id="+layout_id;
+            url: '/login/post/modify/deleteById',
+            type: 'get',
+            data: {'id': id, "layout_id": layout_id},
+            success: function () {
+                window.location.href = "/postList.html?layout_id=" + layout_id;
             }
         })
     }
@@ -136,11 +136,11 @@
     function deleteAndReduce(id) {
         var layout_id = getQueryString("layout_id");
         $.ajax({
-            url:'/login/post/modify/deleteAndReduceById',
-            type:'get',
-            data:{'id':id,"layout_id":layout_id},
-            success:function () {
-                window.location.href="/postList.html?layout_id="+layout_id;
+            url: '/login/post/modify/deleteAndReduceById',
+            type: 'get',
+            data: {'id': id, "layout_id": layout_id},
+            success: function () {
+                window.location.href = "/postList.html?layout_id=" + layout_id;
             }
         })
     }
@@ -149,11 +149,11 @@
         var post_id = getQueryString("id");
         var layout_id = getQueryString("layout_id");
         $.ajax({
-            url:'/login/comment/modify/deleteById',
-            type:'post',
-            data:{'id':id,"layout_id":layout_id},
-            success:function () {
-                window.location.href="/post.html?id="+post_id+"&layout_id="+layout_id;
+            url: '/login/comment/modify/deleteById',
+            type: 'post',
+            data: {'id': id, "layout_id": layout_id},
+            success: function () {
+                window.location.href = "/post.html?id=" + post_id + "&layout_id=" + layout_id;
             }
         })
     }
@@ -182,13 +182,13 @@
         var post = getPost(post_id, layout_id);
         var commentList = getComment(post_id);
         if (typeof commentList == "object") {
-            str_post += '<h1 class="post-title"><a href="#">' + post[0].title   + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a></h1>';
+            str_post += '<h1 class="post-title"><a href="#">' + post[0].title + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a></h1>';
             str_post += '<div class="post-meta clearfix"><span class="date">' + getLocalTime(post[0].create_date) + '</span>';
             str_post += '<span class="comments"><a href="#">' + commentList.length + '个评论' + '</a></span>';
             str_post += '<span class="user"><img src="images/user.png"/><a>' + getUserNameById(post[0].user_id) + '</a></span>';
-            if(getDeleteAuthority(layout_id)=='true'){
-                str_post += '<span id="deletePost" style="float: right"><a onclick="deletePost('+post[0].id+')">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                        '<a onclick="deleteAndReduce('+post[0].id+')" >删除并扣分</a></span>';
+            if (getDeleteAuthority(layout_id) == 'true') {
+                str_post += '<span id="deletePost" style="float: right"><a onclick="updatePost(' + post_id +','+ layout_id+ ')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a onclick="deletePost(' + post[0].id + ')">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                        '<a onclick="deleteAndReduce(' + post[0].id + ')" >删除并扣分</a></span>';
             }
             str_post += '</div><p>' + post[0].content + '</p>';
             $("#post").prepend(str_post);
@@ -200,8 +200,8 @@
                         + getUserNameById(commentList[i].create_user_id) + '</a></cite></h5>';
                 str_comment += '<p class="date"> <a href="#"> <time>' + getLocalTime(commentList[i].create_data) + '</time> </a> </p> </div>';
                 str_comment += '<div class="comment-body"> <p>' + commentList[i].content + '</p> </div>';
-                if(getDeleteAuthority(layout_id)=='true'){
-                    str_comment += "<a onclick='deleteComment("+commentList[i].id+")'>删除</a>"
+                if (getDeleteAuthority(layout_id) == 'true') {
+                    str_comment += "<a onclick='deleteComment(" + commentList[i].id + ")'>删除</a>"
                 }
                 str_comment += '</article></li></ol>';
             }
@@ -216,7 +216,30 @@
 
     }
 
+    function updatePost(post_id,layout_id) {
+        var content = $("#post>p").html();
+        var post = $($.parseHTML('<textarea class="span12" name="comment" id="updatePost" cols="70" rows="8" style="resize: none"></textarea>'));
+        post.val(content);
+        var save = '<a onclick="saveUpdate(' + post_id +','+layout_id+ ')">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+        $("#post>p").remove();
+        $("#deletePost").prepend(save);
+        $("#post").append(post);
 
+    }
+
+    function saveUpdate(post_id,layout_id) {
+        var content = $("#updatePost").val()
+        //alert(content);
+        $.ajax({
+            url:"/login/post/updateById",
+            type:'post',
+            data:{'id':post_id,'content':content,'layout_id':layout_id},
+            success:function () {
+                showPost();
+            }
+
+        })
+    }
 
     function getPost(id, layout_id) {
         var post = "";
