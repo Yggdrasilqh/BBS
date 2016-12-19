@@ -12,7 +12,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Knowledge Base Theme</title>
+    <title>SCUJCC BBS</title>
+
 
     <link rel="shortcut icon" href="images/favicon.png"/>
 
@@ -59,13 +60,18 @@
 </div>
 <!-- End of Header -->
 <div class="search-area-wrapper">
-    <div class="search-area container">
+    <div class="search-area container" style="text-align: center">
         <h3 class="search-header" id="layout-name">Have a Question?</h3>
         <p class="search-tag-line" id="layout-info">If you have any question you can ask below or enter what you are looking for!</p>
-
+        <div class="row">
+            <input id="modify-layout-name" name="name" hidden/>
+        </div><br><br>
+        <div class="row">
+            <input style="height: 60px" id="modify-layout-info" name="info" hidden/>
+        </div>
         <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off" novalidate="novalidate">
             <input class="search-btn postPush" type="button" value="我要发贴">
-            <div id="search-error-container"></div>
+            <input id="modify-layout-button" class="search-btn" type="button" value="修改版面信息" hidden>
         </form>
     </div>
 </div>
@@ -104,7 +110,16 @@
         showPostList(layoutId);
         $(".postPush").click(function () {
             window.location.href="/pushPost.html?layout_id="+layoutId;
-        })
+        });
+
+        var modify_layout_button = $('#modify-layout-button');
+
+        if(getDeleteAuthority(layoutId) == 'true'){
+            modify_layout_button.show();
+            modifyLayoutClick();
+        }
+
+
     });
 
     function flashLayoutInfo(layoutId) {
@@ -150,6 +165,36 @@
         })
     }
 
+    function modifyLayoutClick(){
+        var modify_layout_button = $('#modify-layout-button');
+        modify_layout_button.click(function(){
+            var layout_name = $('#layout-name').text();
+            var layout_info = $('#layout-info').text();
+            var modify_layout_name = $('#modify-layout-name');
+            var modify_layout_info = $('#modify-layout-info');
+
+            if(!modify_layout_button.hasClass("comeOut")) {
+
+                $('#layout-info').fadeOut('fast');
+                $('#layout-name').fadeOut('fast');
+
+                modify_layout_name.fadeIn('slow');
+                modify_layout_name.val(layout_name);
+                modify_layout_info.fadeIn('slow');
+                modify_layout_info.val(layout_info);
+                modify_layout_button.addClass("comeOut");
+                $('.postPush').fadeOut('fast');
+                return false;
+            } else {
+                layout_name = modify_layout_name.val();
+                layout_info = modify_layout_info.val();
+                alert(layout_name + layout_info + getQueryString("layout_id"));
+                modifyLayout(getQueryString("layout_id"), layout_name, layout_info);
+                window.location.reload();
+            }
+        });
+
+    }
 
 </script>
 </body>

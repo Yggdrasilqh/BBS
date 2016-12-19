@@ -190,12 +190,26 @@ function getInfo() {
     return info;
 }
 
+function modifyLayout(layout_id,name,info) {
+    $.ajax({
+        url: '/login/modifyLayout/modify',
+        async: false,
+        data: {'id':layout_id,'name':name,'info':info},
+        success: function (data) {
+            info = data;
+        }
+    });
+    return info;
+}
+
 $(function () {
     var user_info = $('#user-info');
     var info = getInfo();
     var info_html = '';
-    info_html += info.name + '/';
-    info_html += '经验值：'+ info.acc_point + '/';
-    info_html += '用户组' + getGroupName(info.group_id);
-    user_info.append(info_html);
+    if(info != null) {
+        info_html += info.name + '/';
+        info_html += '经验值：' + info.acc_point + '/';
+        info_html += '用户组：' + getGroupName(info.group_id);
+        user_info.append(info_html);
+    }
 });
