@@ -34,8 +34,13 @@ public class ModifyLayout {
     }
 
     @RequestMapping("/modify")
-    private String modifyLayout(Layout layout){
-        if(layoutRepository.exists(layout.getId())) {
+    private String modifyLayout(int id, String name ,String info){
+        if(layoutRepository.exists(id)) {
+            Layout layout = new Layout();
+            layout.setId(id);
+            layout.setInfo(info);
+            layout.setName(name);
+            layout.setGroup_id(layoutRepository.getOne(id).getGroup_id());
             layoutRepository.save(layout);
             return "success";
         }
