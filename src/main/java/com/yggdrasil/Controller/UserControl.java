@@ -52,10 +52,7 @@ public class UserControl {
         User user = (User) httpServletRequest.getSession().getAttribute("user");
         return user.getAuthority_id();
     }
-     @RequestMapping(value = "/getName",method = RequestMethod.GET)
-     public String getPostUser(String id) {
-         return userRepository.findById(id).getName();
-     }
+
      @RequestMapping("/getCurr")
      public User getUser(HttpServletRequest httpServletRequest){
          return (User)httpServletRequest.getSession().getAttribute("user");
