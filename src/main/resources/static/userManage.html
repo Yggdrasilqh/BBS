@@ -86,6 +86,7 @@
                         <th>用户组</th>
                         <th>权限</th>
                         <th>拥有版面</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody id="user_table">
@@ -103,9 +104,24 @@
             <!-- end of sidebar -->
         </div>
         <hr>
+
+        <h2>用户组称号：</h2>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                <tr class="warning">
+                    <th>用户组名</th>
+                    <th>所需经验值</th>
+                </tr>
+                </thead>
+                <tbody id="group-table">
+                </tbody>
+            </table>
+            <input type="button" value="添加用户组">
+        </div>
         <div class="row">
             <div class="span8 page-content" style="width: 1560px">
-                <p>用户版主设置：</p>
+                <h2>用户版主设置：</h2>
                 <div>
                     <label>用户ID/姓名：
                         <select class="span4" id="user">
@@ -165,7 +181,7 @@
             user_table_content += '<td>' + user_data[loop].email + '</td>';
             user_table_content += '<td>' + user_data[loop].group_name + '</td>';
             user_table_content += '<td>' + authority(user_data[loop].authority_id) + '</td>';
-            user_table_content += '<td>' + user_data[loop].layouts + '</td><tr>';
+            user_table_content += '<td>' + user_data[loop].layouts + '</td><td><a>删除</a></td>><tr>';
         }
         user_table.append(user_table_content);
     }
@@ -209,9 +225,27 @@
         })
     }
 
+    function showGroupTable(){
+        var group_data;
+        var group_table;
+        $.ajax({
+            url: '/getAllUserGroup',
+            async: false,
+            success:function (data) {
+                group_data = data;
+            }
+        });
+        for(var loop = 0 ; loop < group_data.length ; loop++){
+            group_table += '<tr><td>'+group_data[loop].name+'</td>';
+            group_table += '<td>' + group_data[loop].acc_point_min + '</td></tr>';
+        }
+        $("#group-table").append(group_table);
+    }
+
     $(function () {
         showUserTable();
         showUserForLayout();
+        showGroupTable();
         $("#save").click(saveModerator);
     })
 </script>

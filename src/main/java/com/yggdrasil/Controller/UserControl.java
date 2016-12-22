@@ -1,6 +1,7 @@
 package com.yggdrasil.Controller;
 
 
+import com.yggdrasil.Entity.Moderator;
 import com.yggdrasil.Entity.User;
 import com.yggdrasil.Repository.ModeratorRepository;
 import com.yggdrasil.Repository.UserGroupRepository;
@@ -42,7 +43,9 @@ public class UserControl {
     public String getDeleteAuthority(HttpServletRequest httpServletRequest, int layout_id) {
         String result = "";
         User user = (User) httpServletRequest.getSession().getAttribute("user");
-        if (user.getAuthority_id() == 2 || moderatorRepository.findByUser_idAndLayout_id(user.getId(), layout_id) != null)
+        List<Moderator> list = moderatorRepository.findByUser_idAndLayout_id(user.getId(), layout_id);
+
+        if (user.getAuthority_id() == 2 || moderatorRepository.findByUser_idAndLayout_id(user.getId(), layout_id).size() > 0)
             result = "true";
         else
             result = "false";

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by chenq on 2016/12/19,019.
@@ -26,4 +27,5 @@ public class ModeratorControl {
         moderatorRepository.save(moderator);
         return "success";
     }
+
 }

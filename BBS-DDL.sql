@@ -69,30 +69,48 @@ CREATE TABLE Comment
 CREATE INDEX Comment_Post_id_fk ON Comment (post_id);
 CREATE INDEX Comment_Users_id_fk ON Comment (create_user_id);
 
+
 CREATE TRIGGER Auto_Time_Post
-  BEFORE INSERT ON Post
-  FOR EACH ROW
+BEFORE INSERT ON Post
+FOR EACH ROW
   BEGIN
     SET new.create_date = now();
   END;
 
 CREATE TRIGGER Auto_Time_Comment
-  BEFORE INSERT ON Comment
-  FOR EACH ROW
+BEFORE INSERT ON Comment
+FOR EACH ROW
   BEGIN
     SET new.create_date = now();
   END;
- CREATE TRIGGER Auto_Delete_Layout
-   BEFORE DELETE ON Layout
-   FOR EACH ROW
-   BEGIN
-     DELETE FROM Comment WHERE post_id = (SELECT id FROM Post WHERE layout_id = old.id);
-     DELETE FROM Post WHERE layout_id = old.id;
-   END;
 
- CREATE TRIGGER Auto_Delete_Post
-   BEFORE DELETE ON Post
-   FOR EACH ROW
-   BEGIN
-     DELETE FROM Comment WHERE post_id = old.id;
-   END;
+ALTER TABLE Users ADD CONSTRAINT phone_length_ck CHECK(length(phone) = 11)
+
+CREATE TRIGGER Auto_Delete_Layout
+BEFORE DELETE ON Layout
+FOR EACH ROW
+  BEGIN
+    DELETE FROM Comment WHERE post_id = (SELECT id FROM Post WHERE layout_id = old.id);
+    DELETE FROM Post WHERE layout_id = old.id;
+  END;
+
+CREATE TRIGGER Auto_Delete_Post
+BEFORE DELETE ON Post
+FOR EACH ROW
+  BEGIN
+    DELETE FROM Comment WHERE post_id = old.id;
+  END;
+
+CREATE TRIGGER Auto_Inc_point
+AFTER INSERT ON Comment
+FOR EACH ROW
+  BEGIN
+    UPDATE Users SET acc_point = acc_point+1 WHERE id = new.create_user_id;
+  END;
+
+CREATE TRIGGER Auto_Inc_point_2
+AFTER INSERT ON Post
+FOR EACH ROW
+  BEGIN
+    UPDATE Users SET acc_point = acc_point+3 WHERE id = new.user_id;
+  END;
