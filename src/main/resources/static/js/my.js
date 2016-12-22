@@ -29,12 +29,6 @@ function getPostByLayoutId(layout_id) {
 function dateFormat(timestamp) {
     var date = new Date(parseInt(timestamp)).toLocaleString().replace(/:\d{1,2}$/, ' ');
     var info = '';
-    //info += date.getFullYear() + "年";
-    // info += date.getMonth() + "月";
-    // info += date.getDay() + "日";
-    // info += date.getHours() + "时";
-    // info += date.getMinutes() + "分";
-    //info += date.getSeconds() + "秒";
     return date;
 }
 

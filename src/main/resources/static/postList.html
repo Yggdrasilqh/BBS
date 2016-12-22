@@ -69,9 +69,13 @@
         <div class="row">
             <input style="height: 60px" id="modify-layout-info" name="info" hidden/>
         </div>
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off" novalidate="novalidate">
+        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off"
+              novalidate="novalidate">
             <input class="search-btn postPush" type="button" value="我要发贴">
-            <input id="modify-layout-button" class="search-btn" type="button" value="修改版面信息" hidden>
+            <br><br>
+            <div id="modify-layout-button" hidden>
+                <input class="search-btn" type="button" value="修改版面信息">
+            </div>
         </form>
     </div>
 </div>
@@ -115,6 +119,7 @@
         var modify_layout_button = $('#modify-layout-button');
 
         if(getDeleteAuthority(layoutId) == 'true'){
+            alert(getDeleteAuthority(layoutId));
             modify_layout_button.show();
             modifyLayoutClick();
         }

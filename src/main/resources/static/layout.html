@@ -67,8 +67,9 @@
                         <ul class="articles">
                             <li class="article-entry standard">
                                 <h4><a href="post.html">帖子</a></h4>
-                                <span class="article-meta">时间<a href="#"
-                                                                title="View all posts in Server &amp; Database">发帖用户</a></span>
+                                <span class="article-meta">时间
+                                    <a href="#"
+                                       title="View all posts in Server &amp; Database">发帖用户</a></span>
                             </li>
                         </ul>
                     </section>
@@ -150,11 +151,14 @@
         if(typeof layout_data == 'object') {
             for (var loop = 0; loop < layout_data.length; loop++) {
                 var post_data = getPostByLayoutId(layout_data[loop].id);
-                layout += "<section class='span4 articles-list'><a href='/postList.html?layout_id=" + layout_data[loop].id + "'><h1>"
-                        + layout_data[loop].name + "</h1></a><a href='' name='delete-layout' id=" + layout_data[loop].id + " hidden style='margin-left: 90%'>删除</a><ul class='articles'>";
+                layout += "<section class='span4 articles-list'><a href='/postList.html?layout_id="
+                        + layout_data[loop].id + "'><h1>"
+                        + layout_data[loop].name + "</h1></a><a href='' name='delete-layout' id="
+                        + layout_data[loop].id + " hidden style='margin-left: 90%'>删除</a><ul class='articles'>";
                 if (typeof post_data == 'object') {
                     for (var loop2 = 0; loop2 < post_data.length && loop2 < 6; loop2++) {
-                        layout += "<li class='article-entry standard'><h4><a href='post.html?id=" + post_data[loop2].id + "&layout_id=" + layout_data[loop].id + "'>" +
+                        layout += "<li class='article-entry standard'><h4><a href='post.html?id="
+                                + post_data[loop2].id + "&layout_id=" + layout_data[loop].id + "'>" +
                                 post_data[loop2].title + "</a></h4>";
                         layout += '<span class="article-meta">时间:' + dateFormat(post_data[loop2].create_date)
                                 + '发帖用户:<a href="#" title="View all posts in Server &amp; Database">'
@@ -178,7 +182,9 @@
             var user_group_data = getUserGroup();
             var user_group = '';
             for(var loop = 0 ; loop < user_group_data.length ; loop++) {
-                user_group += '<option value='+user_group_data[loop].id+'>'+user_group_data[loop].name+'  以上的用户'+'</option>';
+                user_group +=
+                        '<option value='+user_group_data[loop].id+'>'+user_group_data[loop].name
+                        +'  以上的用户'+'</option>';
             }
             $('#add-layout select').empty();
             $('#add-layout select').append(user_group);
